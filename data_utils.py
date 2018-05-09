@@ -7,9 +7,9 @@ def change_color(train_data):
     color = np.zeros([num, 3], dtype=np.uint8)
     for i in range(num):
         print(i)
-        r = np.random.randint(56, 256)
-        g = np.random.randint(56, 256)
-        b = np.random.randint(56, 256)
+        r = np.random.randint(0, 200)
+        g = np.random.randint(0, 200)
+        b = np.random.randint(0, 200)
         color[i][0] = r
         color[i][1] = g
         color[i][2] = b
@@ -23,22 +23,31 @@ def change_color(train_data):
     return output, color
 
 class DataShuffler(object):
-    def __init__(self, data, label_color, label_digit, perc_train=0.9):
+    def __init__(self, data, label_color, label_digit, perc_train=0.5, perc_val=0.3, perc_test = 0.2):
 
         total_samples = data.shape[0]
         indexes = np.array(range(total_samples))
         np.random.shuffle(indexes)
 
         train_samples = int(round(total_samples * perc_train))
-        validation_samples = total_samples - train_samples
+        validation_samples = int(round(total_samples * perc_val))
 
         self.train_data = data[indexes[0:train_samples], :, :, :]
         self.train_label_digit = label_digit[indexes[0:train_samples]]
         self.train_label_color = label_color[indexes[0:train_samples], :]
 
-        self.validation_data = data[indexes[train_samples:train_samples + validation_samples], :, :, :]
-        self.validation_label_digit = label_digit[indexes[train_samples:train_samples + validation_samples]]
-        self.validation_label_color = label_color[indexes[train_samples:train_samples + validation_samples], :]
+        self.validation_data = data[indexes[train_samples:train_samples+validation_samples], :, :, :]
+        self.validation_label_digit = label_digit[indexes[train_samples:train_samples+validation_samples]]
+        self.validation_label_color = label_color[indexes[train_samples:train_samples+validation_samples], :]
+
+        self.test_data = data[indexes[train_samples+validation_samples:], :, :, :]
+        self.test_label_digit = label_digit[indexes[train_samples+validation_samples:]]
+        self.test_label_color = label_color[indexes[train_samples+validation_samples:], :]
+
+    def save_image(self, feat, i, index):
+        img = Image.fromarray(self.test_data[index, :, :, :])
+        file_name = "public/"+feat+"_"+str(i)+".jpg"
+        img.save(file_name)
 
     def get_triplet(self, n_triplets, feature="color", training=True):
 
@@ -55,17 +64,20 @@ class DataShuffler(object):
             indexes = np.where(input_label_digit == label_negative)[0]
             np.random.shuffle(indexes)
             data_negative = input_data[indexes[0], :, :, :]
+
             return data_anchor, data_positive, data_negative
 
         def get_one_triplet_color(input_data, input_label_color):
 
-            label_anchor = np.random.choice(200*200*200, 1, replace=False)
-            label_anchor = [56 + label_anchor % 200, 56 + (label_anchor // 200) % 200,
-                              56 + (label_anchor// 40000) % 200]
+            r = np.random.randint(0, 200)
+            g = np.random.randint(0, 200)
+            b = np.random.randint(0, 200)
+            label_anchor = [r, g, b]
             label_anchor = np.reshape(label_anchor, [1, 3])
-            i = 1
+
+            i = 5
             while True:
-                indexes = np.where(np.sum(np.square(input_label_color-label_anchor), axis=1) < 100*i)[0]
+                indexes = np.where(np.sum(np.square(input_label_color - label_anchor), axis=1) < 100 * i)[0]
                 if indexes.size > 1:
                     break
                 i += 1
@@ -75,9 +87,9 @@ class DataShuffler(object):
             data_anchor = input_data[indexes[0], :, :, :]
             data_positive = input_data[indexes[1], :, :, :]
 
-            i = 40
+            i = 50
             while True:
-                indexes = np.where(np.sum(np.square(input_label_color-label_anchor), axis=1) > 100*i)[0]
+                indexes = np.where(np.sum(np.square(input_label_color - label_anchor), axis=1) > 100 * i)[0]
                 if indexes.size > 0:
                     break
                 i -= 1
@@ -95,7 +107,7 @@ class DataShuffler(object):
         data_p = np.zeros(shape=(n_triplets, w, h, c), dtype='float32')
         data_n = np.zeros(shape=(n_triplets, w, h, c), dtype='float32')
 
-        if feature=="color":
+        if feature == "color":
             for i in range(n_triplets):
                 data_a[i], data_p[i], data_n[i] = get_one_triplet_color(self.train_data, self.train_label_color)
         else:
