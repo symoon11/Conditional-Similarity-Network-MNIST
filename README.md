@@ -1,4 +1,4 @@
-(# Conditional-Similarity-Network-MNIST
+# Conditional-Similarity-Network-MNIST
 This is a toy example of Conditional Similarity Networks on MNIST dataset. It is based on a paper named "Conditional Similarity Networks" written by A. Veit, S. Belongie and T. Karaletsos.
 
 ## Overview
