@@ -46,6 +46,11 @@ At first, i ran the training with 2000 iteration. The result is as follows. The 
    <b>Case 2. digit</b><br>
  </p>
 
+| Header  | Another header |
+|---------|----------------|
+| field 1 | something      |
+| field 2 | something else |
+
 Isn't that strange? Look at the result of case 1. The positive samples are more likely to have the same digit as the anchor. 50% of the sample are 8!. It implies that color mask and digit mask are correlated. Actually, the coefficients of two masks are as follows
 
       |     color     |     digit     | 
