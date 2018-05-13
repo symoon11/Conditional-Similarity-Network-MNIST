@@ -33,7 +33,7 @@ I used hinge loss as loss function.
 To test the model, I picked an anchor from the test set. And then, I passed all the inputs in test set into the network. Finally I measured the distance between anchor output and the others. I choose 10 closest inputs from the anchor.
 
 ## Result
-Firstly i ran the training with 2000 iteration. The result is as follows
+At first, i ran the training with 2000 iteration. The result is as follows. The first box means anchor, and the second box represents 10 closest samples.
 
 <p align="center">
    <img src="public/result/fig1.jpg" width ="500">
@@ -46,4 +46,27 @@ Firstly i ran the training with 2000 iteration. The result is as follows
    <b>Case 2. digit</b><br>
  </p>
 
-The first box means anchor, and the second box represents 10 closest samples. Isn't that strange? Especially in the case of color, the positive samples are more likely to have the same digit as the anchor. 60% of the sample are 8!.
+Isn't that strange? Look at the result of case 1. The positive samples are more likely to have the same digit as the anchor. 50% of the sample are 8!. It implies that color mask and digit mask are correlated.
+
+     color     |     digit
+---------------|---------------
+1.3572024e+00  | 9.2015648e-01
+-3.4946132e-01 | 4.3405625e-01
+1.0715414e+00  | 5.0198692e-01
+2.5438932e-01  | 9.0543813e-01
+9.8532408e-01  | 9.0611883e-02
+1.2879860e+00  | -1.5302801e-01
+3.0987355e-01  | 1.0871087e+00
+7.4810916e-01  | 1.9085248e+00
+1.4328172e+00  | 4.6207100e-01
+1.5345807e+00  | 9.2612886e-01
+1.0465456e+00  | 2.1864297e+00
+-8.5371196e-02 | 1.8422171e-01
+2.2996366e-03  | 3.0973017e-01
+-2.6021469e-01 | 9.8107708e-01
+9.2680907e-01  | 6.4489403e-05
+1.5980076e+00  | 3.8404701e-07
+8.7253183e-01  | 1.9499277e-01
+1.8782541e+00  | 1.8202764e-01
+4.7374862e-01  | 2.1356693e-06
+9.1653597e-01  | 1.3017328e+00
