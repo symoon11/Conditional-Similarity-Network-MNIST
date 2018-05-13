@@ -24,4 +24,10 @@ I used Lenet as the encoder of the network, 2 convolutional layers followed by 2
 
 3. Training
 
-I used AdamOptimizer as the optimizer of the network. The learning rate was 1e-3. I set the batch size 100. For each minibatch, I picked 100 triplets randomly from training dataset.
+I used AdamOptimizer as the optimizer of the network. The learning rate was 1e-3. I set the batch size 100. 
+For each minibatch, I picked 100 triplets randomly from training dataset. In case of color, i choose a positive sample whose rgb is closer to that of an anchor, and a negative smaple whose rgb is far from that of an anchor. In case of digit, i choose a positive sample whose digit is the same as that of an anchor, and a negative smaple whose digit is diffrent from that of an anchor.
+I used hinge loss as loss function.
+
+4. Test
+
+I tested 
