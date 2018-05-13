@@ -29,10 +29,12 @@ For each minibatch, I picked 100 triplets randomly from training dataset. In cas
 I used hinge loss as loss function.
 
 4. Test
+
 To test the model, I picked an anchor from the test set. And then, I passed all the inputs in test set into the network. Finally I measured the distance between anchor output and the others. I choose 10 closest inputs from the anchor.
 
 ## Result
 Firstly i ran the training with 2000 iteration. The result is as follows
+
 <p align="center">
    <img src="public/result/fig1.jpg" width ="500">
    <br>
@@ -43,3 +45,5 @@ Firstly i ran the training with 2000 iteration. The result is as follows
    <br>
    <b>Case 2. digit</b><br>
  </p>
+
+The first box means anchor, and the second box represents 10 closest samples. Isn't that strange? Especially in the case of color, the positive samples are more likely to have the same digit as the anchor. 60% of the sample are 8!.
