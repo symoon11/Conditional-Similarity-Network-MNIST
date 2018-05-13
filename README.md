@@ -113,5 +113,5 @@ Look at the first case. We can see the digits with equal probability. It seems t
 
 ## Conclusion
 
-I expected that the activated indices of two masks should not coincide. However, even after 5000 iterations, it does not happen.
+I expected that the activated indices of two masks should not coincide. However, even after 5000 iterations, it does not happen. The paper said that the networks is good for training multiple attributes simultaneously. However, the result of experiment does not support what the paper said.
 
