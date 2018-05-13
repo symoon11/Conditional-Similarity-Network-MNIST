@@ -13,3 +13,12 @@ According to the paper, Conditional Similarity Network works better to learn mul
 The network has better performance on learning multiple similarities that correlate each other. In this case, some masks for the similarities are activated on the same indices. Then what if the similarities is unrelated? For example, there is a digit image which has a font color. It has two attributes, digit and color. However there is no relation between two. It means that, in feature vector, some dimensions are representing color attribute, and some dimensions are representing digit attribute, but there is no index that represent both color and digit. I wanted to experimentally show that if I trained the network with unrelated features, the mask of each feature does not share indecies with the other masks.
 
 ## Experiment setting
+1. Data Set
+I made a new data set from MNIST dataset. First, I picked rgb values from [0~200](to avoid a letter to be white) randomly per iamge, and add color on a fixel whose greyscale is nonzero. Finally I got a image whose backgraound is black and digit is colored.
+Because my computer is super slow, I just only use 5000 images from MNIST dataset. I assigned 50% of the images to traning set, 30% to validation set, 10% to test set.
+
+2. Network structure
+I used Lenet as the encoder of the network, 2 convolutional layers followed by 2 dense layers. Output dimension of the encoder is 20. I used two masks for the attributes, color and digit. So the total dimension of the masks are [20, 2]. I used deep metric learning mentioned above.
+
+3. Training
+I used AdamOptimizer as the optimizer of the network. The learning rate was 10^-3. I set the batch size 100. For each minibatch, I picked 100 triplets randomly from training dataset.
