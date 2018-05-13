@@ -21,4 +21,4 @@ Because my computer is super slow, I just only use 5000 images from MNIST datase
 I used Lenet as the encoder of the network, 2 convolutional layers followed by 2 dense layers. Output dimension of the encoder is 20. I used two masks for the attributes, color and digit. So the total dimension of the masks are [20, 2]. I used deep metric learning mentioned above.
 
 3. Training
-I used AdamOptimizer as the optimizer of the network. The learning rate was 10^-3. I set the batch size 100. For each minibatch, I picked 100 triplets randomly from training dataset.
+I used AdamOptimizer as the optimizer of the network. The learning rate was []equateion{10^-3}. I set the batch size 100. For each minibatch, I picked 100 triplets randomly from training dataset.
