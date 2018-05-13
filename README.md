@@ -46,7 +46,7 @@ At first, i ran the training with 2000 iteration. The result is as follows. The 
    <b>Case 2. digit</b><br>
  </p>
 
-|Isn't that strange? Look at the result of case 1. The positive samples are more likely to have the same digit as the anchor. 50% of the sample are 8!. It implies that color mask and digit mask are correlated. Actually, the coefficients of two masks are as follows
+It seems the network works well. Hovever, there is something strange. Look at the result of case 1. The positive samples are more likely to have the same digit as the anchor. 50% of the sample are 8!. It implies that color mask and digit mask are correlated. Actually, the coefficients of two masks are as follows.
 
 |     color     |     digit     | 
 |---------------|---------------|
@@ -71,4 +71,47 @@ At first, i ran the training with 2000 iteration. The result is as follows. The 
 | 4.7374862e-01 | 2.1356693e-06 |
 | 9.1653597e-01 | 1.3017328e+00 |
       
-You can see that color and digit attributes shares 11th row.
+You can see that color and digit attributes shares 1th row, 11th row and 20th row.
+
+Does it help to increase the number of iteration? I re-trained the network with 5000 of iterations. The result is as follows.
+
+<p align="center">
+   <img src="public/result/fig3.jpg" width ="500">
+   <br>
+   <b>Case 1. color</b><br>
+ </p>
+ <p align="center">
+   <img src="public/result/fig4.jpg" width ="500">
+   <br>
+   <b>Case 2. digit</b><br>
+ </p>
+ 
+Look at the first case. We can see the digits with equal probability. It seems that the masks do not share a variable. However, as you can see below, the masks shares some rows.
+
+|     color     |     digit     | 
+|---------------|---------------|
+| 3.1746492e-01 |-3.0449569e-02 |
+| 9.7776592e-01 | 1.9820638e-01 |
+| 3.0899182e-01 | 1.2614999e+00 |
+| 5.0264919e-01 | 4.7458627e-04 |
+|-2.0565987e-02 | 1.0122026e+00 |
+| 1.2532429e+00 |-5.0570053e-04 |
+| 1.1761242e+00 | 7.0249259e-01 |
+| 4.3930151e-03 | 1.7211841e+00 |
+| 1.5434515e+00 | 1.0000439e-03 |
+| 7.5177276e-01 | 1.2705497e+00 |
+| 9.5747131e-01 | 1.0597352e+00 |
+| 2.0184386e-01 | 1.1644945e+00 |
+|-3.3016729e-01 | 7.8291142e-01 |
+| 2.8982167e-05 | 1.6994121e+00 |
+|-2.2581347e-12 | 1.5167643e+00 |
+| 1.5507573e-01 | 1.5918788e+00 |
+| 1.8356254e+00 |-6.9651306e-02 |
+| 1.5352018e+00 | 7.4336982e-01 |
+| 3.6188364e-01 | 8.4463215e-01 |
+| 5.5576164e-01 | 7.6898432e-01 |
+
+## Conclusion
+
+I expected that the activated indices of two masks should not coincide. However, even after 5000 iterations, it does not happen.
+
