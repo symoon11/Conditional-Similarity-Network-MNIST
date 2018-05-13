@@ -29,5 +29,17 @@ For each minibatch, I picked 100 triplets randomly from training dataset. In cas
 I used hinge loss as loss function.
 
 4. Test
+To test the model, I picked an anchor from the test set. And then, I passed all the inputs in test set into the network. Finally I measured the distance between anchor output and the others. I choose 10 closest inputs from the anchor.
 
-I tested 
+## Result
+Firstly i ran the training with 2000 iteration. The result is as follows
+<p align="center">
+   <img src="public/result/fig1.jpg" width ="500">
+   <br>
+   <b>Case 1. color</b><br>
+ </p>
+ <p align="center">
+   <img src="public/result/fig2.jpg" width ="500">
+   <br>
+   <b>Case 2. digit</b><br>
+ </p>
